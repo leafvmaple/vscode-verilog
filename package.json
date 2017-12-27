@@ -1,0 +1,112 @@
+{
+    "name": "verilog",
+    "displayName": "Verilog HDL",
+    "description": "Verilog HDL Language Support for Visual Studio Code.",
+    "version": "0.0.2",
+    "publisher": "leafvmaple",
+    "icon": "images/icon.png",
+    "engines": {
+        "vscode": "^1.17.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/leafvmaple/vscode-verilog"
+    },
+    "activationEvents": [
+        "onCommand:verilog.run",
+        "onCommand:verilog.stop"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "verilog.run",
+                "title": "Verilog: Run Verilog HDL Code",
+                "icon": "images/icon.png"
+            },
+            {
+                "command": "verilog.stop",
+                "title": "Verilog: Stop Running"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "resourceLangId == verilog && config.verilog.showRunIconInEditorTitleMenu",
+                    "command": "verilog.run",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Verilog configuration",
+            "properties": {
+                "verilog.showRunIconInEditorTitleMenu": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to show 'Run Verilog HDL' icon in editor title menu.",
+                    "scope": "resource"
+                },
+                "verilog.runInTerminal": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to run code in Integrated Terminal.",
+                    "scope": "resource"
+                },
+                "verilog.clearPreviousOutput": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to clear previous output before each run.",
+                    "scope": "resource"
+                },
+                "verilog.preserveFocus": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to preserve focus on code editor after code run is triggered.",
+                    "scope": "resource"
+                }
+            }
+        },
+        "languages": [
+            {
+                "id": "verilog",
+                "aliases": [
+                    "Verilog",
+                    "verilog"
+                ],
+                "extensions": [
+                    ".v",
+                    ".vh"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "verilog",
+                "scopeName": "source.verilog",
+                "path": "./syntaxes/verilog.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "dependencies": {
+        "tree-kill": "^1.1.0"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
