@@ -4,6 +4,10 @@ The Visual Studio Code extenstion for Verilog HDL Language support.
 
 ## Release Notes
 
+### Version 0.0.3
+
+* Change the compile filename.
+
 ### Version 0.0.2
 
 * Fixed the Description.

@@ -2,7 +2,7 @@
     "name": "verilog",
     "displayName": "Verilog HDL",
     "description": "Verilog HDL Language Support for Visual Studio Code.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "leafvmaple",
     "icon": "images/icon.png",
     "engines": {

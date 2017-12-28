@@ -6,8 +6,8 @@ import * as vscode from "vscode";
 export class Commands implements vscode.Disposable {
     private LANGUAGE_NAME  = "Verilog";
     private EXTENTSION_NAME = "verilog";
-    private COMPILE_COMMANDS = "iverilog ";
-    private EXECUTE_COMMANDS = "./a.out";
+    private COMPILE_COMMANDS = "iverilog -o {fileName}.out {fileName}";
+    private EXECUTE_COMMANDS = "./{fileName}.out";
 
     private outputChannel: vscode.OutputChannel;
     private terminal: vscode.Terminal;
@@ -31,7 +31,7 @@ export class Commands implements vscode.Disposable {
         }
 
         const editor = vscode.window.activeTextEditor;
-        const fileName = editor.document.fileName;
+        const fileName = basename(editor.document.fileName);
         this.cwd = dirname(editor.document.fileName);
 
         this.config = vscode.workspace.getConfiguration(this.EXTENTSION_NAME);
@@ -51,8 +51,8 @@ export class Commands implements vscode.Disposable {
         }
         this.terminal.show(preserveFocus);
         this.terminal.sendText(`cd "${this.cwd}"`);
-        this.terminal.sendText(this.COMPILE_COMMANDS + fileName);
-        this.terminal.sendText(this.EXECUTE_COMMANDS);
+        this.terminal.sendText(this.COMPILE_COMMANDS.replace(/{fileName}/g, fileName));
+        this.terminal.sendText(this.EXECUTE_COMMANDS.replace(/{fileName}/g, fileName));
     }
 
     public executeCommandInOutputChannel(fileName: string, clearPreviousOutput, preserveFocus): void {
@@ -66,7 +66,7 @@ export class Commands implements vscode.Disposable {
         this.outputChannel.appendLine(`[Running] ${basename(fileName)}`);
         const exec = require("child_process").exec;
         const startTime = new Date();
-        this.compileProcess = exec(this.COMPILE_COMMANDS + fileName, { cwd: this.cwd });
+        this.compileProcess = exec(this.COMPILE_COMMANDS.replace(/{fileName}/g, fileName), { cwd: this.cwd });
 
         this.compileProcess.stdout.on("data", (data) => {
             this.outputChannel.append(data);
@@ -85,7 +85,7 @@ export class Commands implements vscode.Disposable {
 
             if (this.isSuccess) {
 
-                this.executeProcess = exec(this.EXECUTE_COMMANDS, { cwd: this.cwd });
+                this.executeProcess = exec(this.EXECUTE_COMMANDS.replace(/{fileName}/g, fileName), { cwd: this.cwd });
                 this.executeProcess.stdout.on("data", (data) => {
                     this.outputChannel.append(data);
                 });
