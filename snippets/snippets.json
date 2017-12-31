@@ -1,0 +1,48 @@
+{
+    "include": {
+        "prefix": "`include",
+        "body": [
+            "`include \"$0\""
+        ],
+        "description":"Include other verilog file."
+    },
+    "define": {
+        "prefix": "`define",
+        "body": [
+            "`define $1 $2"
+        ],
+        "description":"Define."
+    },
+    "begin": {
+        "prefix": "begin",
+        "body": [
+            "begin",
+            "  $1",
+            "end"
+        ],
+        "description":"Begin end."
+    },
+    "module": {
+        "prefix": "module",
+        "body": [
+            "module $1($2);",
+            "$3",
+            "endmodule"
+        ],
+        "description":"Module."
+    },
+    "input": {
+        "prefix": "input",
+        "body": [
+            "input $1;"
+        ],
+        "description":"Input"
+    },
+    "output": {
+        "prefix": "output",
+        "body": [
+            "output $1;"
+        ],
+        "description":"Output"
+    }
+}

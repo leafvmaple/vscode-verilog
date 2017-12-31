@@ -12,6 +12,7 @@ export class Commands implements vscode.Disposable {
     private outputChannel: vscode.OutputChannel;
     private terminal: vscode.Terminal;
     private config: vscode.WorkspaceConfiguration;
+    private document: vscode.TextDocument;
     private cwd: string;
     private isRunning: boolean;
     private isCompiling: boolean;
@@ -24,16 +25,24 @@ export class Commands implements vscode.Disposable {
         this.terminal = vscode.window.createTerminal(this.LANGUAGE_NAME);
     }
 
-    public executeCommand(): void {
+    public async executeCommand(fileUri: vscode.Uri) {
         if (this.isRunning) {
             vscode.window.showInformationMessage("Code is already running!");
             return;
         }
 
         const editor = vscode.window.activeTextEditor;
-        const fileName = basename(editor.document.fileName);
-        this.cwd = dirname(editor.document.fileName);
+        if (fileUri && editor && fileUri.fsPath !== editor.document.uri.fsPath) {
+            this.document = await vscode.workspace.openTextDocument(fileUri);
+        } else if (editor) {
+            this.document = editor.document;
+        } else {
+            vscode.window.showInformationMessage("No code found or selected.");
+            return;
+        }
 
+        const fileName = basename(this.document.fileName);
+        this.cwd = dirname(this.document.fileName);
         this.config = vscode.workspace.getConfiguration(this.EXTENTSION_NAME);
         const runInTerminal = this.config.get<boolean>("runInTerminal");
         const clearPreviousOutput = this.config.get<boolean>("clearPreviousOutput");

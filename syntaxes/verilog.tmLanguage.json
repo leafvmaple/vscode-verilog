@@ -99,6 +99,41 @@
             "patterns": [
                 {
                     "include": "#keywords"
+                },
+                {
+                    "begin": "^\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\[\\s*(\\d+)\\s*\\:\\s*(\\d+)\\s*\\]\\s*(?<!begin|if)\\s*(?=\\(|$)", 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.tag.module.reference.verilog"
+                        }, 
+                        "2": {
+                            "name": "entity.name.tag.module.identifier.verilog"
+                        }, 
+                        "3": {
+                            "name": "constant.numeric.integer.verilog"
+                        },
+                        "4": {
+                            "name": "constant.numeric.integer.verilog"
+                        }
+                    }, 
+                    "end": ";", 
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.terminator.expression.verilog"
+                        }
+                    }, 
+                    "name": "meta.block.instantiation.parameterless.verilog", 
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        }, 
+                        {
+                            "include": "#constants"
+                        }, 
+                        {
+                            "include": "#strings"
+                        }
+                    ]
                 }, 
                 {
                     "begin": "^\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s+([a-zA-Z][a-zA-Z0-9_]*)(?<!begin|if)\\s*(?=\\(|$)", 
@@ -128,7 +163,7 @@
                             "include": "#strings"
                         }
                     ]
-                }, 
+                },
                 {
                     "begin": "^\\s*([a-zA-Z][a-zA-Z0-9_]*)\\s*(#)(?=\\s*\\()", 
                     "beginCaptures": {
@@ -166,7 +201,7 @@
                     "name": "keyword.other.compiler.directive.verilog"
                 }, 
                 {
-                    "match": "\\$(f(open|close)|readmem(b|h)|timeformat|printtimescale|stop|finish|(s|real)?time|realtobits|bitstoreal|rtoi|itor|(f)?(display|write(h|b)))\\b", 
+                    "match": "\\$(f(open|close)|readmem(b|h)|timeformat|printtimescale|stop|finish|(s|real)?time|realtobits|bitstoreal|rtoi|itor|(f)?(display|monitor|write(h|b)))\\b", 
                     "name": "support.function.system.console.tasks.verilog"
                 }, 
                 {

@@ -2,7 +2,7 @@
     "name": "verilog",
     "displayName": "Verilog HDL",
     "description": "Verilog HDL Language Support for Visual Studio Code.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "leafvmaple",
     "icon": "images/icon.png",
     "engines": {
@@ -91,6 +91,12 @@
                 "language": "verilog",
                 "scopeName": "source.verilog",
                 "path": "./syntaxes/verilog.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "verilog",
+                "path": "./snippets/snippets.json"
             }
         ]
     },

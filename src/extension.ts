@@ -7,7 +7,7 @@ const commands = new Commands();
 export function activate(context: vscode.ExtensionContext) {
 
     const run = vscode.commands.registerCommand("verilog.run", (fileUri: vscode.Uri) => {
-        commands.executeCommand();
+        commands.executeCommand(fileUri);
     });
 
     const stop = vscode.commands.registerCommand("verilog.stop", () => {

@@ -1,5 +1,9 @@
 # Verilog Change Log
 
+## [0.0.4] 2017-12-31
+
+* Add Verilog Snippets.
+
 ## [0.0.3] 2017-12-27
 
 * Change the compile filename.
