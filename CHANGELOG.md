@@ -1,5 +1,9 @@
 # Verilog Change Log
 
+## [0.0.5] 2019-06-25
+
+* Fixed the Bug when Running Code in Windows.
+
 ## [0.0.4] 2017-12-31
 
 * Add Verilog Snippets.

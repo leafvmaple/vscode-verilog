@@ -7,7 +7,7 @@ export class Commands implements vscode.Disposable {
     private LANGUAGE_NAME  = "Verilog";
     private EXTENTSION_NAME = "verilog";
     private COMPILE_COMMANDS = "iverilog -o {fileName}.out {fileName}";
-    private EXECUTE_COMMANDS = "./{fileName}.out";
+    private EXECUTE_COMMANDS = "vvp {fileName}.out";
 
     private outputChannel: vscode.OutputChannel;
     private terminal: vscode.Terminal;

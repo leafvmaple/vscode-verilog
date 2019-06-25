@@ -10,6 +10,10 @@ Install it from [VS Code Marketplace](https://marketplace.visualstudio.com/items
 
 * **Install [Icarus Verilog](https://iverilog.fandom.com/wiki/Installation_Guide)**
 
+  In Windows, you should add executable folder to the uesr PATH
+
+* **Click the `Run Code` Button**
+
 ## Commands
 
 * **Run Verilog HDL Code**
