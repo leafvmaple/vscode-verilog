@@ -2,22 +2,20 @@
 
 The Visual Studio Code extenstion for Verilog HDL Language support.
 
-## Release Notes
+## Installation
 
-### Version 0.0.4
+Install it from [VS Code Marketplace](https://marketplace.visualstudio.com/items/itemName=leafvmaple.verilog)
 
-* Add Verilog Snippets.
+## Run Code
 
-### Version 0.0.3
+* **Install [Icarus Verilog](https://iverilog.fandom.com/wiki/Installation_Guide)**
 
-* Change the compile filename.
+## Commands
 
-### Version 0.0.2
+* **Run Verilog HDL Code**
 
-* Fixed the Description.
+    Use Icarus Verilog to run the current code.
 
-### Version 0.0.1
+* **Stop Running**
 
-* Create the `tmLanguage`.
-
------------------------------------------------------------------------------------------------------------
+    Stop Running Code.
