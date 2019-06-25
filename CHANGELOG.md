@@ -1,5 +1,9 @@
 # Verilog Change Log
 
+## [0.0.6] 2019-06-25
+
+* Remove redundant code.
+
 ## [0.0.5] 2019-06-25
 
 * Fixed the Bug when Running Code in Windows.
