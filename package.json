@@ -107,7 +107,7 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
-        "tree-kill": "^1.1.0",
+        "tree-kill": "^1.2.2",
         "iconv-lite": "^0.4.24"
     },
     "devDependencies": {
