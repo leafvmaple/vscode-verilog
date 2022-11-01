@@ -5,7 +5,7 @@ import * as vscode from "vscode";
 export class Commands implements vscode.Disposable {
     private LANGUAGE_NAME  = "Verilog";
     private EXTENTSION_NAME = "verilog";
-    private COMPILE_COMMANDS = "iverilog -o {fileName}.out {fileName}";
+    private COMPILE_COMMANDS = "iverilog {iverilogOptions} -o {fileName}.out {fileName}";
     private EXECUTE_COMMANDS = "vvp {fileName}.out";
 
     private outputChannel: vscode.OutputChannel;
@@ -45,25 +45,26 @@ export class Commands implements vscode.Disposable {
         this.config = vscode.workspace.getConfiguration(this.EXTENTSION_NAME);
         const runInTerminal = this.config.get<boolean>("runInTerminal");
         const clearPreviousOutput = this.config.get<boolean>("clearPreviousOutput");
+        const iverilogOptions = this.config.get<string>("iverilogOptions");
         const preserveFocus = this.config.get<boolean>("preserveFocus");
         if (runInTerminal) {
-            this.executeCommandInTerminal(fileName, clearPreviousOutput, preserveFocus);
+            this.executeCommandInTerminal(fileName, clearPreviousOutput, preserveFocus, iverilogOptions);
         } else {
-            this.executeCommandInOutputChannel(fileName, clearPreviousOutput, preserveFocus);
+            this.executeCommandInOutputChannel(fileName, clearPreviousOutput, preserveFocus, iverilogOptions);
         }
     }
 
-    public executeCommandInTerminal(fileName: string, clearPreviousOutput, preserveFocus): void {
+    public executeCommandInTerminal(fileName: string, clearPreviousOutput, preserveFocus, iverilogOptions: string): void {
         if (clearPreviousOutput) {
             vscode.commands.executeCommand("workbench.action.terminal.clear");
         }
         this.terminal.show(preserveFocus);
         this.terminal.sendText(`cd "${this.cwd}"`);
-        this.terminal.sendText(this.COMPILE_COMMANDS.replace(/{fileName}/g, fileName));
+        this.terminal.sendText(this.COMPILE_COMMANDS.replace(/{fileName}/g, fileName).replace(/{iverilogOptions}/g, iverilogOptions));
         this.terminal.sendText(this.EXECUTE_COMMANDS.replace(/{fileName}/g, fileName));
     }
 
-    public executeCommandInOutputChannel(fileName: string, clearPreviousOutput, preserveFocus): void {
+    public executeCommandInOutputChannel(fileName: string, clearPreviousOutput, preserveFocus, iverilogOptions: string): void {
         if (clearPreviousOutput) {
             this.outputChannel.clear();
         }
@@ -74,7 +75,7 @@ export class Commands implements vscode.Disposable {
         this.outputChannel.appendLine(`[Running] ${basename(fileName)}`);
         const exec = require("child_process").exec;
         const startTime = new Date();
-        this.compileProcess = exec(this.COMPILE_COMMANDS.replace(/{fileName}/g, fileName), { cwd: this.cwd });
+        this.compileProcess = exec(this.COMPILE_COMMANDS.replace(/{fileName}/g, fileName).replace(/{iverilogOptions}/g, iverilogOptions), { cwd: this.cwd });
 
         this.compileProcess.stdout.on("data", (data) => {
             this.outputChannel.append(data);
