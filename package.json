@@ -2,7 +2,7 @@
     "name": "verilog",
     "displayName": "Verilog HDL",
     "description": "Verilog HDL Language Support for Visual Studio Code.",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "publisher": "leafvmaple",
     "icon": "images/icon.png",
     "engines": {
@@ -68,6 +68,12 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Whether to preserve focus on code editor after code run is triggered.",
+                    "scope": "resource"
+                },
+                "verilog.iverilogOptions": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to iverilog command. For reference: the resulting command is 'iverilog {iverilogOptions} -o {fileName}.out {fileName}'",
                     "scope": "resource"
                 }
             }
